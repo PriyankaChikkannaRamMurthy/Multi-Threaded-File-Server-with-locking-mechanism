@@ -24,6 +24,13 @@ Challenges in converting single threaded to multi-threaded server:
 3.	The challenge in creating a single threaded server is that it can handle only one client at a time as object for Socket handles client making it to block until the connection gets terminated so that any other client will not be connected on the same port. We should ensure that socket is freed and handled by each thread.
 4.	In order, to increase the efficiency of the server for file handling operations, we ensure that multiple clients to be connected to the same server at same time and request from each client is handled concurrently. 
 
+Understanding importance of locking:
+1. We connected 2 clients to our multi-threaded server from 2 different machines.
+2. Each gave command to rename the same file at the same time.
+3. One request was successful and one request ran into exception saying file not found.
+4. By this we understand how locking protocols can be necessary.
+5. Locking protocols will provide additional stability and guarantee consistency.
+6. Most basic approach will be provide write lock to the file for functions like renaming. Read and write locks for delete requests, etc.
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
